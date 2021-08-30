@@ -7,22 +7,30 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
+  <div class="top-container">
     <div class="my_upbit">
       <h1 id="upbitPriceTitle">업비트 리플 가격</h1>
       <h2 id="upbitPrice">?</h2>
       <div class="submitContainer">
-        <input  type="number" />
-        <button id="submit">확인</button>
+        <input id="upbitInput" type="number" />
       </div>
     </div>
     <div class="my_binance">
       <h1 id="binancePriceTitle">바이낸스 리플 가격</h1>
       <h2 id="binancePrice">?</h2>
       <div class="submitContainer">
-        <input type="number" />
-        <button id="submit">확인</button>
+        <input id="binanceInput" type="number" />
       </div>
+    </div>
+  </div>
+  <div class="top-container">
+    <div class="my_upbit">
+      <h1 id="upbitValueTitle">현재 업비트 자산가치</h1>
+      <h2 id="upbitValue"></h2>
+    </div>
+    <div class="my_binance">
+      <h1 id="binanceValueTitle">현재 바이낸스 자산가치</h1>
+      <h2 id="binanceValue">0</h2>
     </div>
   </div>
   <script src="index.js"></script>
