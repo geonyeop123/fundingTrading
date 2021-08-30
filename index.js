@@ -16,6 +16,7 @@ let upbit = 0;
 let upbitAmount = 0;
 let binance = 0;
 let binanceAmount = 0;
+let ustd = 0;
 
 function getPrice() {
   const request = new XMLHttpRequest();
@@ -25,6 +26,8 @@ function getPrice() {
   var obj = JSON.parse(request.responseText);
   upbit = obj[0].trade_price;
   upbitPrice.textContent = upbit.toLocaleString() + "₩";
+  binance = 1.12;
+  binancePrice.textContent = binance.toLocaleString() + "$";
   if (upbitSessionFlag) calcuValue(true);
   if (binanceSessionFlag) calcuValue(true);
 }
@@ -35,7 +38,7 @@ function calcuValue(type) {
     upbitValue.textContent = (upbitAmount * upbit).toLocaleString() + "₩";
   } else {
     binanceAmount = binanceInput.value;
-    binanceValue.textContent = (binanceAmount * binance).toLocaleString() + "₩";
+    binanceValue.textContent = (binanceAmount * (binance * )).toLocaleString() + "₩";
   }
   saveSession(type);
 }
