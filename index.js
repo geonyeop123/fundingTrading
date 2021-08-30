@@ -16,7 +16,7 @@ let upbit = 0;
 let upbitAmount = 0;
 let binance = 0;
 let binanceAmount = 0;
-let ustd = 0;
+let ustd = 1150;
 
 function getPrice() {
   const request = new XMLHttpRequest();
@@ -29,7 +29,7 @@ function getPrice() {
   binance = 1.12;
   binancePrice.textContent = binance.toLocaleString() + "$";
   if (upbitSessionFlag) calcuValue(true);
-  if (binanceSessionFlag) calcuValue(true);
+  if (binanceSessionFlag) calcuValue(false);
 }
 
 function calcuValue(type) {
@@ -38,7 +38,8 @@ function calcuValue(type) {
     upbitValue.textContent = (upbitAmount * upbit).toLocaleString() + "₩";
   } else {
     binanceAmount = binanceInput.value;
-    binanceValue.textContent = (binanceAmount * (binance * )).toLocaleString() + "₩";
+    binanceValue.textContent =
+      (binanceAmount * (binance * ustd)).toLocaleString() + "₩";
   }
   saveSession(type);
 }
@@ -57,6 +58,7 @@ function saveSession(type) {
 }
 
 function init() {
+  binanceSessionFlag = true;
   if (upbitSessionFlag) {
     upbitInput.value = parseInt(localStorage.getItem(upbitSession));
     calcuValue(true);
