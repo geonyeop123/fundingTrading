@@ -139,5 +139,7 @@ function getBinance() {
 
 init();
 setInterval(getUstd, 600000);
-setInterval(getBinance, 15000);
-setInterval(getPrice, 15000);
+setInterval(() => {
+  getBinance();
+  getPrice();
+}, 15000);
