@@ -13,6 +13,7 @@ const buyTotalInput = document.querySelector("#buyInput");
 const buyValue = document.querySelector("#buyValue");
 const ustdValue = document.querySelector("#ustd");
 const sellBinanceInput = document.querySelector("#sellBinanceInput");
+const sellUpbitInput = document.querySelector("#sellUpbitInput");
 const buyBinanceInput = document.querySelector("#buyBinanceInput");
 const expectationValue = document.querySelector("#expectationValue");
 
@@ -24,6 +25,7 @@ const binanceDregsSession = "binanceDregs";
 const buyTotalSession = "buyTotal";
 const ustdSession = "ustd";
 const sellBinanceSession = "sellBinance";
+const sellUpbitSession = "sellUpbit";
 const buyBinanceSession = "buyBinance";
 
 let upbitSessionFlag = true;
@@ -43,11 +45,13 @@ let upbitDregs = 0;
 let binanceDregs = 0;
 let ustd = 0;
 let sellBinance = 0;
+let sellUpbit = 0;
 let buyBinance = 0;
 let expectation = 0;
 let binanceBenefit = 0;
 let leverage = 2;
 let sellTotal = 0;
+let upbitSellTotal = 0;
 
 function getPrice() {
   fetch("https://api.upbit.com/v1/ticker?markets=KRW-XRP")
@@ -76,14 +80,17 @@ function calcuValue() {
   upbitValue.textContent = upbitTotal.toLocaleString() + "₩";
   binanceAmount = binanceInput.value;
   binanceDregs = parseInt(binanceDregsInput.value);
-  sellTotal = binanceAmount * (parseFloat(sellBinance) * ustd);
-  binanceTotal = sellTotal / leverage - binanceBenefit + binanceDregs;
+  sellTotal = (binanceAmount * (parseFloat(sellBinance) * ustd)) / leverage;
+  upbitSellTotal = upbitAmount * parseInt(sellUpbit) + upbitDregs;
+  binanceTotal = sellTotal - binanceBenefit + binanceDregs;
   binanceValue.textContent = Math.round(binanceTotal).toLocaleString() + "₩";
-  buyTotal = buyTotalInput.value;
+  buyTotal = sellTotal + upbitSellTotal;
   buyValue.textContent = parseInt(buyTotal).toLocaleString() + "₩";
   sellBinance = parseFloat(sellBinanceInput.value).toFixed(3);
+  sellUpbit = parseInt(sellUpbitInput.value);
   buyBinance = parseFloat(buyBinanceInput.value).toFixed(3);
   sellBinanceInput.value = sellBinance;
+  sellUpbitInput.value = sellUpbit;
   buyBinanceInput.value = buyBinance;
   binanceBenefit =
     binanceAmount * (binance * ustd) -
@@ -96,8 +103,8 @@ function saveSession() {
   localStorage.setItem(binanceSession, binanceAmount);
   localStorage.setItem(upbitDregsSession, upbitDregs);
   localStorage.setItem(binanceDregsSession, binanceDregs);
-  localStorage.setItem(buyTotalSession, buyTotal);
   localStorage.setItem(sellBinanceSession, sellBinance);
+  localStorage.setItem(sellUpbitSession, sellUpbit);
   localStorage.setItem(buyBinanceSession, buyBinance);
 }
 
@@ -106,8 +113,8 @@ function init() {
   binanceInput.value = localStorage.getItem(binanceSession);
   upbitDregsInput.value = localStorage.getItem(upbitDregsSession);
   binanceDregsInput.value = localStorage.getItem(binanceDregsSession);
-  buyTotalInput.value = localStorage.getItem(buyTotalSession);
   sellBinanceInput.value = localStorage.getItem(sellBinanceSession);
+  sellUpbitInput.value = localStorage.getItem(sellUpbitSession);
   buyBinanceInput.value = localStorage.getItem(buyBinanceSession);
   ustd = parseInt(localStorage.getItem(ustdSession));
   if (isNaN(ustd)) getUstd();
