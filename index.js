@@ -79,16 +79,18 @@ function calcuValue() {
   upbitTotal = upbitAmount * upbit + upbitDregs;
   upbitValue.textContent = upbitTotal.toLocaleString() + "₩";
   binanceAmount = binanceInput.value;
-  binanceDregs = parseInt(binanceDregsInput.value);
-  sellTotal = (binanceAmount * (parseFloat(sellBinance) * ustd)) / leverage;
+  binanceDregs = parseFloat(binanceDregsInput.value);
+  sellTotal =
+    (binanceAmount * (parseFloat(sellBinance) * ustd)) / leverage +
+    binanceDregs * ustd;
   upbitSellTotal = upbitAmount * parseInt(sellUpbit) + upbitDregs;
-  binanceTotal = sellTotal - binanceBenefit + binanceDregs;
+  binanceTotal = sellTotal - binanceBenefit;
   binanceValue.textContent = Math.round(binanceTotal).toLocaleString() + "₩";
   buyTotal = sellTotal + upbitSellTotal;
   buyValue.textContent = parseInt(buyTotal).toLocaleString() + "₩";
-  sellBinance = parseFloat(sellBinanceInput.value).toFixed(3);
+  sellBinance = parseFloat(sellBinanceInput.value).toFixed(4);
   sellUpbit = parseInt(sellUpbitInput.value);
-  buyBinance = parseFloat(buyBinanceInput.value).toFixed(3);
+  buyBinance = parseFloat(buyBinanceInput.value).toFixed(4);
   sellBinanceInput.value = sellBinance;
   sellUpbitInput.value = sellUpbit;
   buyBinanceInput.value = buyBinance;
