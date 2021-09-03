@@ -167,10 +167,11 @@ function getTimer() {
   binancePriceTimerTitle.textContent = binanceTimer;
   symbol = "+";
   if (benefitTotal < 0) symbol = "";
-  document.title = symbol + benefitTotal.toLocaleString() + "　　" + upbitTimer;
+  let gp = (((upbit - binance * ustd) / upbit) * 100).toFixed(2);
+  document.title =
+    symbol + benefitTotal.toLocaleString() + "　　" + upbitTimer + "　　" + gp;
 }
 
 setInterval(() => {
   getTimer();
-  console.log(binanceTimer);
 }, 1000);
