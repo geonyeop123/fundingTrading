@@ -103,6 +103,8 @@ function calcuValue() {
     binanceAmount * (binance * ustd) -
     binanceAmount * (parseFloat(sellBinance) * ustd);
   saveSession();
+  upbitTimer = 15;
+  binanceTimer = 15;
 }
 
 function saveSession() {
@@ -163,10 +165,6 @@ function getTimer() {
   binanceTimer--;
   upbitPriceTimerTitle.textContent = upbitTimer;
   binancePriceTimerTitle.textContent = binanceTimer;
-  if (upbitTimer == 0) {
-    upbitTimer = 15;
-    binanceTimer = 15;
-  }
   symbol = "+";
   if (benefitTotal < 0) symbol = "";
   document.title = symbol + benefitTotal.toLocaleString() + "　　" + upbitTimer;
