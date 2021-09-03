@@ -16,6 +16,8 @@ const sellBinanceInput = document.querySelector("#sellBinanceInput");
 const sellUpbitInput = document.querySelector("#sellUpbitInput");
 const buyBinanceInput = document.querySelector("#buyBinanceInput");
 const expectationValue = document.querySelector("#expectationValue");
+const upbitPriceTimerTitle = document.querySelector("#upbitPriceTimer");
+const binancePriceTimerTitle = document.querySelector("#binancePriceTimer");
 
 const upbitSession = "upbit";
 const binanceSession = "binance";
@@ -52,6 +54,10 @@ let binanceBenefit = 0;
 let leverage = 2;
 let sellTotal = 0;
 let upbitSellTotal = 0;
+let upbitTimer = 15;
+let binanceTimer = 15;
+let ustdTImer = 60;
+let symbol;
 
 function getPrice() {
   fetch("https://api.upbit.com/v1/ticker?markets=KRW-XRP")
@@ -65,11 +71,10 @@ function getPrice() {
   currentTotal = upbitTotal + binanceTotal;
   currentValue.textContent = currentTotal.toLocaleString() + "₩";
   benefitTotal = Math.floor(currentTotal - buyTotal);
-  let symbol = "+";
+  symbol = "+";
   if (benefitTotal < 0) symbol = "";
   benefit.textContent = symbol + benefitTotal.toLocaleString() + "₩";
   ustdValue.textContent = ustd.toLocaleString() + "₩";
-  document.title = symbol + benefitTotal.toLocaleString();
   console.log("getPrice");
 }
 
@@ -152,3 +157,22 @@ setInterval(() => {
   getBinance();
   getPrice();
 }, 15000);
+
+function getTimer() {
+  upbitTimer--;
+  binanceTimer--;
+  upbitPriceTimerTitle.textContent = upbitTimer;
+  binancePriceTimerTitle.textContent = binanceTimer;
+  if (upbitTimer == 0) {
+    upbitTimer = 15;
+    binanceTimer = 15;
+  }
+  symbol = "+";
+  if (benefitTotal < 0) symbol = "";
+  document.title = symbol + benefitTotal.toLocaleString() + "　　" + upbitTimer;
+}
+
+setInterval(() => {
+  getTimer();
+  console.log(binanceTimer);
+}, 1000);
