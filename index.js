@@ -18,6 +18,7 @@ const buyBinanceInput = document.querySelector("#buyBinanceInput");
 const expectationValue = document.querySelector("#expectationValue");
 const upbitPriceTimerTitle = document.querySelector("#upbitPriceTimer");
 const binancePriceTimerTitle = document.querySelector("#binancePriceTimer");
+const binanceDalValue = document.querySelector("#binanceDalValue");
 
 const upbitSession = "upbit";
 const binanceSession = "binance";
@@ -102,9 +103,10 @@ function calcuValue() {
   binanceBenefit =
     binanceAmount * (binance * ustd) -
     binanceAmount * (parseFloat(sellBinance) * ustd);
+  binanceDalValue.textContent = (binanceTotal / ustd).toFixed(4) + "$";
   saveSession();
-  upbitTimer = 15;
-  binanceTimer = 15;
+  upbitTimer = 10;
+  binanceTimer = 10;
 }
 
 function saveSession() {
@@ -147,7 +149,7 @@ function getBinance() {
   fetch("https://api.binance.com/api/v1/ticker/24hr")
     .then((response) => response.json())
     .then((data) => {
-      binance = data[308].askPrice;
+      binance = data[637].askPrice;
       localStorage.setItem(binancePriceSession, binance);
       console.log("getBinance");
     });
@@ -158,7 +160,7 @@ setInterval(getUstd, 600000);
 setInterval(() => {
   getBinance();
   getPrice();
-}, 15000);
+}, 10000);
 
 function getTimer() {
   upbitTimer--;
