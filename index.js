@@ -150,7 +150,7 @@ function getBinance() {
     .then((response) => response.json())
     .then((data) => {
       // binance = data[637].askPrice;
-      binance = data[11].askPrice;
+      binance = parseFloat(data[11].askPrice) + parseFloat(buyBinance);
       localStorage.setItem(binancePriceSession, binance);
       console.log("getBinance");
     });
