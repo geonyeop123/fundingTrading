@@ -61,7 +61,7 @@ let ustdTImer = 60;
 let symbol;
 
 function getPrice() {
-  fetch("https://api.upbit.com/v1/ticker?markets=KRW-XRP")
+  fetch("https://api.upbit.com/v1/ticker?markets=KRW-BTC")
     .then((response) => response.json())
     .then((data) => {
       upbit = data[0].trade_price;
@@ -149,7 +149,9 @@ function getBinance() {
   fetch("https://api.binance.com/api/v1/ticker/24hr")
     .then((response) => response.json())
     .then((data) => {
-      binance = data[637].askPrice;
+      console.log(data[11].askPrice);
+      // binance = data[637].askPrice;
+      binance = data[11].askPrice;
       localStorage.setItem(binancePriceSession, binance);
       console.log("getBinance");
     });
