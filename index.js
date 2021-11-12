@@ -149,7 +149,6 @@ function getBinance() {
   fetch("https://api.binance.com/api/v1/ticker/24hr")
     .then((response) => response.json())
     .then((data) => {
-      console.log(data[11].askPrice);
       // binance = data[637].askPrice;
       binance = data[11].askPrice;
       localStorage.setItem(binancePriceSession, binance);
@@ -173,7 +172,7 @@ function getTimer() {
   if (benefitTotal < 0) symbol = "";
   let gp = (((upbit - binance * ustd) / upbit) * 100).toFixed(2);
   document.title =
-    symbol + benefitTotal.toLocaleString() + "　　" + upbitTimer + "　　" + gp;
+    gp + "　　" + symbol + benefitTotal.toLocaleString() + "　　" + upbitTimer;
 }
 
 setInterval(() => {
