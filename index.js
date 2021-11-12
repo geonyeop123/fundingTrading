@@ -176,14 +176,15 @@ function getTimer() {
   if (benefitTotal < 0) symbol = "";
   let gp = (((upbit - binance * ustd) / upbit) * 100).toFixed(2);
   document.title =
-    sellGp +
-    "  " +
     gp +
-    "  " +
+    " " +
     symbol +
     benefitTotal.toLocaleString() +
-    "  " +
-    upbitTimer;
+    " " +
+    upbitTimer +
+    " " +
+    sellGp +
+    " ";
 }
 
 setInterval(() => {
