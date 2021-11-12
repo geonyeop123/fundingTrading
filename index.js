@@ -168,11 +168,22 @@ function getTimer() {
   binanceTimer--;
   upbitPriceTimerTitle.textContent = upbitTimer;
   binancePriceTimerTitle.textContent = binanceTimer;
+  let sellGp = (
+    ((sellUpbit - parseFloat(sellBinance) * ustd) / sellUpbit) *
+    100
+  ).toFixed(2);
   symbol = "+";
   if (benefitTotal < 0) symbol = "";
   let gp = (((upbit - binance * ustd) / upbit) * 100).toFixed(2);
   document.title =
-    gp + "　　" + symbol + benefitTotal.toLocaleString() + "　　" + upbitTimer;
+    sellGp +
+    "  " +
+    gp +
+    "  " +
+    symbol +
+    benefitTotal.toLocaleString() +
+    "  " +
+    upbitTimer;
 }
 
 setInterval(() => {
