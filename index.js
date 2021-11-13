@@ -52,38 +52,19 @@ let sellUpbit = 0;
 let buyBinance = 0;
 let expectation = 0;
 let binanceBenefit = 0;
-let leverage = 2;
+let leverage = 1;
 let sellTotal = 0;
 let upbitSellTotal = 0;
 let upbitTimer = 15;
 let binanceTimer = 15;
 let ustdTImer = 60;
+let gp = 0;
 let symbol;
-
-function getPrice() {
-  fetch("https://api.upbit.com/v1/ticker?markets=KRW-XRP")
-    .then((response) => response.json())
-    .then((data) => {
-      upbit = data[0].trade_price;
-    });
-  calcuValue();
-  upbitPrice.textContent = upbit.toLocaleString() + "₩";
-  binancePrice.textContent = parseFloat(binance).toLocaleString() + "$";
-  currentTotal = upbitTotal + binanceTotal;
-  currentValue.textContent = currentTotal.toLocaleString() + "₩";
-  benefitTotal = Math.floor(currentTotal - buyTotal);
-  symbol = "+";
-  if (benefitTotal < 0) symbol = "";
-  benefit.textContent = symbol + benefitTotal.toLocaleString() + "₩";
-  ustdValue.textContent = ustd.toLocaleString() + "₩";
-  console.log("getPrice");
-}
 
 function calcuValue() {
   upbitAmount = upbitInput.value;
   upbitDregs = parseInt(upbitDregsInput.value);
   upbitTotal = upbitAmount * upbit + upbitDregs;
-  upbitValue.textContent = upbitTotal.toLocaleString() + "₩";
   binanceAmount = binanceInput.value;
   binanceDregs = parseFloat(binanceDregsInput.value);
   sellTotal =
@@ -91,9 +72,7 @@ function calcuValue() {
     binanceDregs * ustd;
   upbitSellTotal = upbitAmount * parseInt(sellUpbit) + upbitDregs;
   binanceTotal = sellTotal - binanceBenefit;
-  binanceValue.textContent = Math.round(binanceTotal).toLocaleString() + "₩";
   buyTotal = sellTotal + upbitSellTotal;
-  buyValue.textContent = parseInt(buyTotal).toLocaleString() + "₩";
   sellBinance = parseFloat(sellBinanceInput.value).toFixed(4);
   sellUpbit = parseInt(sellUpbitInput.value);
   buyBinance = parseFloat(buyBinanceInput.value).toFixed(4);
@@ -103,10 +82,24 @@ function calcuValue() {
   binanceBenefit =
     binanceAmount * (binance * ustd) -
     binanceAmount * (parseFloat(sellBinance) * ustd);
+  //
+  currentTotal = upbitTotal + binanceTotal;
+  benefitTotal = Math.floor(currentTotal - buyTotal);
+  symbol = "+";
+  if (benefitTotal < 0) symbol = "";
+  binanceValue.textContent = Math.round(binanceTotal).toLocaleString() + "₩";
+  buyValue.textContent = parseInt(buyTotal).toLocaleString() + "₩";
+  upbitPrice.textContent = upbit.toLocaleString() + "₩";
+  binancePrice.textContent = parseFloat(binance).toFixed(4) + "$";
+  currentValue.textContent = currentTotal.toLocaleString() + "₩";
+  benefit.textContent = symbol + benefitTotal.toLocaleString() + "₩";
+  ustdValue.textContent = ustd.toLocaleString() + "₩";
   binanceDalValue.textContent = (binanceTotal / ustd).toFixed(4) + "$";
+  upbitValue.textContent = upbitTotal.toLocaleString() + "₩";
   saveSession();
   upbitTimer = 10;
   binanceTimer = 10;
+  console.log("calcu");
 }
 
 function saveSession() {
@@ -131,7 +124,7 @@ function init() {
   if (isNaN(ustd)) getUstd();
   binance = parseFloat(localStorage.getItem(binancePriceSession));
   if (isNaN(binance)) getBinance();
-  getPrice();
+  getUpbit();
   calcuValue();
 }
 
@@ -149,17 +142,27 @@ function getBinance() {
   fetch("https://api.binance.com/api/v1/ticker/24hr")
     .then((response) => response.json())
     .then((data) => {
-      binance = data[637].askPrice;
+      binance = parseFloat(data[637].askPrice);
       localStorage.setItem(binancePriceSession, binance);
       console.log("getBinance");
+      getUpbit();
+      calcuValue();
+      gp = (((upbit - binance * ustd) / upbit) * 100).toFixed(2);
     });
+}
+function getUpbit() {
+  fetch("https://api.upbit.com/v1/ticker?markets=KRW-XRP")
+    .then((response) => response.json())
+    .then((data) => {
+      upbit = data[0].trade_price;
+    });
+  console.log("getUpbit");
 }
 
 init();
 setInterval(getUstd, 600000);
 setInterval(() => {
   getBinance();
-  getPrice();
 }, 10000);
 
 function getTimer() {
@@ -169,11 +172,7 @@ function getTimer() {
   binancePriceTimerTitle.textContent = binanceTimer;
   symbol = "+";
   if (benefitTotal < 0) symbol = "";
-  let gp = (((upbit - binance * ustd) / upbit) * 100).toFixed(2);
   document.title =
     symbol + benefitTotal.toLocaleString() + "　　" + upbitTimer + "　　" + gp;
 }
-
-setInterval(() => {
-  getTimer();
-}, 1000);
+setInterval(getTimer, 1000);
