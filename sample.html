@@ -5,27 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="reset.css" />
 </head>
 <body>
-  <div class="top-container">
-    <div class="my_upbit">
-      <h1 id="upbitPriceTitle">업비트 리플 가격</h1>
-      <h2 id="upbitPrice">0</h2>
-      <div class="submitContainer">
-        <input id="upbitInput" type="number" value = "0" />
-        <h4 id="upbitDregsTitle">잔여 금액</h4>
-        <input id=upbitDregsInput type="number" />
+  <div class="top-container container">
+    <div class="my_upbit column">
+      <div class="titleContainer">
+        <p id="upbitPriceTitle" class="title">업비트 리플 가격</p>
+        <p id="upbitPrice" class="coin_price">0</p>
+      </div>
+      <div class="InputContainer">
+        <ul>
+          <li>
+            <p>코인 개수</p>
+            <input id="upbitInput" type="number" value = "0" />
+          </li>
+          <li>
+            <p id="upbitDregsTitle">잔여 금액</p>
+            <input id=upbitDregsInput type="number" />
+          </li>
+        </ul>
       </div>
     </div>
-    <div class="my_binance">
-      <h1 id="binancePriceTitle">바이낸스 리플 가격</h1>
-      <h2 id="binancePrice">0</h2>
-      <div class="submitContainer">
-        <input id="binanceInput" type="number" />
-        <h4 id="binanceDregsTitle">잔여 금액</h4>
-        <input id=binanceDregsInput type="number" />
+    <div class="my_binance column">
+      <div class="titleContainer">
+        <p id="binancePriceTitle" class="title">바이낸스 리플 가격</p>
+        <p id="binancePrice" class="coin_price">0</p>
+      </div>
+      <div class="InputContainer">
+        <ul>
+          <li>
+            <p>코인 개수</p>
+            <input id="binanceInput" type="number" />    
+          </li>
+          <li>
+            <p id="binanceDregsTitle">잔여 금액</p>
+            <input id=binanceDregsInput type="number" />
+          </li>
+        </ul>
       </div>
     </div>
+  </div>
   </div>
   <div class="top-container">
     <div class="my_upbit">
