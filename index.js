@@ -52,7 +52,7 @@ let sellUpbit = 0;
 let buyBinance = 0;
 let expectation = 0;
 let binanceBenefit = 0;
-let leverage = 1;
+let leverage = 2;
 let sellTotal = 0;
 let upbitSellTotal = 0;
 let upbitTimer = 15;
@@ -107,11 +107,11 @@ function calcuValue() {
   binanceValue.textContent = Math.round(binanceTotal).toLocaleString() + "₩";
   buyValue.textContent = parseInt(buyTotal).toLocaleString() + "₩";
   upbitPrice.textContent = upbit.toLocaleString() + "₩";
-  binancePrice.textContent = parseFloat(binance).toFixed(4) + "$";
+  binancePrice.textContent = parseFloat(binance).toFixed(2) + "$";
   currentValue.textContent = currentTotal.toLocaleString() + "₩";
   benefit.textContent = symbol + benefitTotal.toLocaleString() + "₩";
   ustdValue.textContent = ustd.toLocaleString() + "₩";
-  binanceDalValue.textContent = (binanceTotal / ustd).toFixed(4) + "$";
+  binanceDalValue.textContent = (binanceTotal / ustd).toFixed(2) + "$";
   upbitValue.textContent = upbitTotal.toLocaleString() + "₩";
   saveSession();
   upbitTimer = 10;
@@ -156,9 +156,10 @@ function getUstd() {
 }
 
 function getBinance() {
-  fetch("https://api.binance.com/api/v1/ticker/24hr")
+  fetch("https://fapi.binance.com//fapi/v1/ticker/price?symbol=BTCUSDT")
     .then((response) => response.json())
     .then((data) => {
+      binance = data.price;
       localStorage.setItem(binancePriceSession, binance);
       console.log("getBinance");
       getUpbit();
@@ -167,7 +168,7 @@ function getBinance() {
     });
 }
 function getUpbit() {
-  fetch("https://api.upbit.com/v1/ticker?markets=KRW-XRP")
+  fetch("https://api.upbit.com/v1/ticker?markets=KRW-BTC")
     .then((response) => response.json())
     .then((data) => {
       upbit = data[0].trade_price;

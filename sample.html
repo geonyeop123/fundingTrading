@@ -1,14 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="reset.css" />
+  <style>
+    p{
+      margin-top:10px;
+    }
+  </style>
 </head>
+
 <body>
   <div class="top-container container">
+    <div class="upbit_value column">
+      <div class="titleContainer">
+        <p id="upbitValueTitle" class="title">업비트 자산가치</p>
+        <p id="upbitValue" class="coin_value">0</p>
+      </div>
+    </div>
+    <div class="binance_value column">
+      <div class="titleContainer">
+        <p id="totalValueTitle" class="title">통합 자산가치</p>
+        <p id="totalValue" class="coin_value">0</p>
+      </div>
+    </div>
+    <div class="binance_value column">
+      <div class="titleContainer">
+        <p id="binanceValueTitle" class="title">바이낸스 자산가치</p>
+        <p id="binanceValue" class="coin_value">0</p>
+      </div>
+    </div>
+    <div class="exchange column">
+      <div class="titleContainer">
+        <p id="exchangeValueTitle" class="title">환율(10m)</p>
+        <p id="exchangeValue" class="coin_value">0</p>
+      </div>
+    </div>
+  </div>
+  <div class="middle-container container">
     <div class="my_upbit column">
       <div class="titleContainer">
         <p id="upbitPriceTitle" class="title">업비트 리플 가격</p>
@@ -18,11 +51,15 @@
         <ul>
           <li>
             <p>코인 개수</p>
-            <input id="upbitInput" type="number" value = "0" />
+            <input id="upbitInput" type="number" value="0" />
+          </li>
+          <li>
+            <p>매수 평단</p>
+              <input id="sellUpbitInput" type="number" value="0" />
           </li>
           <li>
             <p id="upbitDregsTitle">잔여 금액</p>
-            <input id=upbitDregsInput type="number" />
+            <input id=upbitDregsInput type="number" value="0"/>
           </li>
         </ul>
       </div>
@@ -36,53 +73,21 @@
         <ul>
           <li>
             <p>코인 개수</p>
-            <input id="binanceInput" type="number" />    
+            <input id="binanceInput" type="number" />
+          </li>
+          <li>
+            <p>매수 평단</p>
+              <input id="sellBinanceInput" type="number" value="0" />
           </li>
           <li>
             <p id="binanceDregsTitle">잔여 금액</p>
-            <input id=binanceDregsInput type="number" />
+            <input id=binanceDregsInput type="number" value = "0"/>
           </li>
         </ul>
       </div>
     </div>
   </div>
-  </div>
-  <div class="top-container">
-    <div class="my_upbit">
-      <h1 id="upbitValueTitle">현재 업비트 자산가치</h1>
-      <h2 id="upbitValue"></h2>
-    </div>
-    <div class="my_binance">
-      <h1 id="binanceValueTitle">현재 바이낸스 자산가치</h1>
-      <h2 id="binanceValue">0</h2>
-    </div>
-  </div>
-  <div class="top-container">
-    <div class="my_upbit">
-      <h1 id="currentValueTitle">현재 자산가치</h1>
-      <div class="currentContainer">
-        <h2 id="currentValue">0</h2>
-        <p id = "benefit">11</p>
-      </div>
-        <h1 id="buyValueTitle">매수 시점 자산가치</h1>
-        <h2 id="buyValue">0</h2>
-        <input id=buyInput type="number" />
-        <h3 id="ustdTitle">환율(10분에 1번)</h3>
-        <h2 id="ustd">0</h2>
-        <div class="currentContainer">
-          <h4 id="sellBinanceTitle">매수 업빗 평단</h4>
-          <h4 id="sellBinanceTitle">매수 바낸 평단</h4>  
-        </div>
-        <div>
-          <input id=sellUpbitInput type="number" />
-          <input id=sellBinanceInput type="number" />
-        </div>
-        <h4 id="buyBinanceTitle">판매 시점 바낸평단</h4>
-        <input id=buyBinanceInput type="number" />
-        <h1 id="expectationValueTitle">예상 자산가치</h1>
-        <h2 id="expectationValue">0</h2>
-    </div>
-  </div>
-  <script src="index.js"></script>
+  <script src="sample.js"></script>
 </body>
+
 </html>

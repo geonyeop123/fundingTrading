@@ -4,6 +4,9 @@ body {
 ul {
   list-style: none;
 }
+p {
+  margin-bottom: 3vw;
+}
 .container {
   display: flex;
   justify-content: center;
