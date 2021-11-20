@@ -19,3 +19,10 @@ p {
   flex-direction: column;
   justify-content: center;
 }
+.timer {
+  margin-left: 0.5vw;
+  color: red;
+}
+.coinChoice {
+  width: 150px;
+}
