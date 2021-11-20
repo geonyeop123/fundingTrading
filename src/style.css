@@ -26,3 +26,8 @@ p {
 .coinChoice {
   width: 150px;
 }
+
+.coinSelecterContainer {
+  display: flex;
+  justify-content: center;
+}
